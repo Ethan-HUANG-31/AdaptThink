@@ -10,7 +10,7 @@ import random
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--num_samples", type=int, default=10) # 0 for all data
+    parser.add_argument("--num_samples", type=int, default=0) # 0 for all data
     parser.add_argument("--K", type=int, default=16) 
     parser.add_argument("--dataset_path", type=str, default='./data/test/deepscaler.json')  # data path
     parser.add_argument("--model_name", type=str, default="DeepSeek-R1-Distill-Qwen-1.5B")  
@@ -60,9 +60,9 @@ print('Total inference num:', len(need_list))
 
 if 'DeepSeek' in model:
     if nothinking:
-        prompt_template = '<｜begin▁of▁sentence｜><｜User｜>{question}<｜Assistant｜><think>\n</think>'
+        prompt_template = '<｜begin▁of▁sentence｜><｜User｜>{question}<｜Assistant｜><think>\n\n</think>'
     else:
-        prompt_template = '<｜begin▁of▁sentence｜><｜User｜>{question}<｜Assistant｜><think>\n'
+        prompt_template = '<｜begin▁of▁sentence｜><｜User｜>{question}.Please reason step by step, and put your final answer within \boxed{}.<｜Assistant｜><think>\n'
     # sampling_params['stop'] = ["<｜User｜>", "<｜end▁of▁sentence｜>"]
 
 def chat(js):
